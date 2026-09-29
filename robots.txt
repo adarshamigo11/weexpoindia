@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /.vercel-tmp/
+Disallow: /.vercel/
+
+Sitemap: https://weexpo.vercel.app/sitemap.xml
