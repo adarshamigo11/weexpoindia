@@ -10,105 +10,121 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <style>
 :root{
-  --bg:#191F3C; --bg-alt:#232B52; --text:#FFFFFF; --text-dim:rgba(255,255,255,0.65);
-  --gold:#F4E798; --gold-strong:#F4E798; --border:rgba(244,231,152,0.15); --card:rgba(255,255,255,0.03);
-  --input-border:rgba(255,255,255,0.2);
+  --bg:#0c1022; --bg-alt:#141a38; --text:#FFFFFF; --text-dim:rgba(255,255,255,0.6);
+  --gold:#D4AF37; --gold-strong:#D4AF37; --gold-soft:rgba(212,175,55,0.12);
+  --border:rgba(212,175,55,0.12); --card:rgba(255,255,255,0.025);
+  --input-border:rgba(255,255,255,0.18);
 }
 :root[data-theme="light"]{
-  --bg:#F8F9FC; --bg-alt:#FFFFFF; --text:#232B52; --text-dim:rgba(35,43,82,0.65);
-  --gold:#F4E798; --gold-strong:#B8892B; --border:rgba(35,43,82,0.12); --card:rgba(35,43,82,0.035);
-  --input-border:rgba(35,43,82,0.25);
+  --bg:#F7F8FC; --bg-alt:#FFFFFF; --text:#1a1f3d; --text-dim:rgba(26,31,61,0.6);
+  --gold:#B8860B; --gold-strong:#B8860B; --gold-soft:rgba(184,134,11,0.08);
+  --border:rgba(26,31,61,0.1); --card:rgba(26,31,61,0.03);
+  --input-border:rgba(26,31,61,0.2);
 }
 *{box-sizing:border-box; margin:0; padding:0;}
-html{scroll-behavior:smooth; scroll-padding-top:80px;}
-body{background:var(--bg); color:var(--text); font-family:'Inter',sans-serif; font-weight:300; line-height:1.6; overflow-x:hidden; transition:background .35s ease, color .35s ease;}
-h1,h2,h3{font-family:'Outfit',sans-serif; font-weight:700; letter-spacing:-0.01em; color:var(--text);}
-.slogan{font-family:'Cinzel',serif; letter-spacing:0.22em; font-weight:500; font-size:0.72rem; color:var(--gold-strong);}
+html{scroll-behavior:smooth; scroll-padding-top:100px;}
+body{background:var(--bg); color:var(--text); font-family:'Inter',sans-serif; font-weight:300; line-height:1.7; overflow-x:hidden; transition:background .4s ease, color .4s ease;}
+h1,h2,h3,h4{font-family:'Outfit',sans-serif; font-weight:700; letter-spacing:-0.02em; color:var(--text);}
+.slogan{font-family:'Cinzel',serif; letter-spacing:0.25em; font-weight:500; font-size:0.7rem; color:var(--gold-strong); text-transform:uppercase;}
 a{color:inherit; text-decoration:none;}
-.wrap{max-width:1180px; margin:0 auto; padding:0 6vw;}
+.wrap{max-width:1200px; margin:0 auto; padding:0 6vw;}
 img{max-width:100%; display:block;}
 
 header{position:fixed; top:0; left:0; right:0; z-index:100; padding-top:env(safe-area-inset-top,0px);
-  background:color-mix(in srgb, var(--bg-alt) 78%, transparent); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+  background:color-mix(in srgb, var(--bg) 85%, transparent); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);
   border-bottom:1px solid var(--border);}
-nav{display:flex; align-items:center; justify-content:space-between; padding:16px 6vw; gap:18px;}
-.brand{display:flex; align-items:center; gap:10px; font-family:'Outfit'; font-weight:800; font-size:1.05rem;}
-.brand-mark{width:34px; height:34px; border:1.5px solid var(--gold-strong); border-radius:7px; display:flex; align-items:center; justify-content:center; color:var(--gold-strong); font-family:'Cinzel'; font-size:0.65rem; flex-shrink:0;}
-.navlinks{display:flex; gap:32px; font-size:0.88rem; margin-left:auto;}
-.navlinks a{position:relative; opacity:0.85; transition:opacity .25s; color:var(--text);}
+nav{display:flex; align-items:center; justify-content:space-between; padding:20px 6vw; gap:18px;}
+.brand{display:flex; align-items:center; gap:12px;}
+.brand-logo{height:48px; width:auto; object-fit:contain; flex-shrink:0; filter:brightness(1.1);}
+.navlinks{display:flex; gap:34px; font-size:0.88rem; margin-left:auto;}
+.navlinks a{position:relative; opacity:0.75; transition:opacity .3s; color:var(--text);}
 .navlinks a.active,.navlinks a:hover{opacity:1;}
-.navlinks a::after{content:'';position:absolute;left:0;bottom:-6px;width:0;height:1px;background:var(--gold-strong);transition:width .3s;}
+.navlinks a::after{content:'';position:absolute;left:0;bottom:-6px;width:0;height:1.5px;background:var(--gold-strong);transition:width .35s ease;}
 .navlinks a:hover::after,.navlinks a.active::after{width:100%;}
-.cta-btn{border:1px solid var(--gold-strong); color:var(--gold-strong); padding:10px 20px; border-radius:2px; font-size:0.82rem; font-weight:500; transition:all .3s ease; white-space:nowrap;}
-.cta-btn:hover{background:var(--gold-strong); color:var(--bg-alt);}
-.theme-toggle{width:38px; height:38px; border:1px solid var(--border); border-radius:50%; background:none; color:var(--text); cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:1rem; flex-shrink:0;}
+.cta-btn{border:1px solid var(--gold-strong); color:var(--gold-strong); padding:11px 24px; border-radius:2px; font-size:0.82rem; font-weight:500; transition:all .35s ease; white-space:nowrap;}
+.cta-btn:hover{background:var(--gold-strong); color:var(--bg);}
+.theme-toggle{width:40px; height:40px; border:1px solid var(--border); border-radius:50%; background:none; color:var(--text); cursor:pointer; display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+.theme-toggle svg{width:18px; height:18px;}
 .menu-toggle{display:none; background:none; border:none; color:var(--gold-strong); font-size:1.4rem; cursor:pointer;}
 
-.page-hero{padding:150px 0 70px; border-bottom:1px solid var(--border);}
-.page-hero .section-tag{color:var(--gold-strong); font-size:0.85rem; margin-bottom:14px;}
-.page-hero h1{font-size:clamp(2rem,4.4vw,3.2rem); max-width:760px;}
-.page-hero p{margin-top:20px; max-width:560px; color:var(--text-dim); font-size:1.02rem;}
+.page-hero{padding:170px 0 80px; border-bottom:1px solid var(--border); position:relative;}
+.page-hero::before{content:''; position:absolute; top:0; right:0; width:40%; height:100%; background:radial-gradient(ellipse at right, rgba(212,175,55,0.04) 0%, transparent 70%);}
+.page-hero .section-tag{color:var(--gold-strong); font-size:0.85rem; margin-bottom:16px;}
+.page-hero h1{font-size:clamp(2.2rem,4.6vw,3.4rem); max-width:780px; line-height:1.15;}
+.page-hero p{margin-top:22px; max-width:600px; color:var(--text-dim); font-size:1.05rem; line-height:1.8;}
 
-section{padding:100px 0;}
-.section-tag{color:var(--gold-strong); font-size:0.85rem; font-weight:500; margin-bottom:14px;}
-.section-head h2{font-size:clamp(1.7rem,3.2vw,2.4rem); max-width:640px;}
-.btn-primary{background:var(--gold-strong); color:var(--bg-alt); padding:15px 30px; font-weight:600; font-size:0.9rem; border-radius:2px; display:inline-block; transition:transform .3s ease, box-shadow .3s ease;}
+section{padding:110px 0;}
+.section-tag{color:var(--gold-strong); font-size:0.8rem; font-weight:500; margin-bottom:16px; letter-spacing:0.12em; text-transform:uppercase;}
+.section-head h2{font-size:clamp(1.8rem,3.5vw,2.6rem); max-width:680px; line-height:1.2;}
+.btn-primary{background:var(--gold-strong); color:var(--bg); padding:16px 34px; font-weight:600; font-size:0.9rem; border-radius:2px; display:inline-block; transition:transform .35s ease, box-shadow .35s ease;}
 :root[data-theme="light"] .btn-primary{color:#fff;}
-.btn-primary:hover{transform:translateY(-2px); box-shadow:0 10px 30px -8px rgba(244,231,152,0.5);}
-.btn-ghost{border:1px solid var(--input-border); color:var(--text); padding:15px 30px; font-size:0.9rem; border-radius:2px; transition:border-color .3s;}
+.btn-primary:hover{transform:translateY(-3px); box-shadow:0 14px 36px -10px rgba(212,175,55,0.4);}
+.btn-ghost{border:1px solid var(--input-border); color:var(--text); padding:16px 34px; font-size:0.9rem; border-radius:2px; transition:border-color .35s, color .35s;}
 .btn-ghost:hover{border-color:var(--gold-strong); color:var(--gold-strong);}
 
-footer{background:var(--bg-alt); padding:70px 0 30px; border-top:1px solid var(--border);}
-.footer-grid{display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:40px;}
-footer .brand{margin-bottom:14px;}
-footer p.desc{font-size:0.85rem; color:var(--text-dim); max-width:320px;}
-footer h4{font-size:0.82rem; color:var(--gold-strong); margin-bottom:16px; font-weight:500;}
-footer ul{list-style:none;}
-footer li{margin-bottom:10px; font-size:0.85rem; color:var(--text-dim);}
-.social-row{display:flex; gap:12px; margin-bottom:22px;}
-.social-row a{width:36px; height:36px; border:1px solid var(--border); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.75rem; color:var(--gold-strong); transition:background .3s;}
-.social-row a:hover{background:var(--card);}
-.newsletter{display:flex; margin-top:6px;}
-.newsletter input{flex:1; background:transparent; border:1px solid var(--input-border); border-right:none; padding:10px 12px; color:var(--text); font-size:0.82rem;}
-.newsletter button{background:var(--gold-strong); color:#fff; border:none; padding:0 16px; font-weight:600; font-size:0.8rem; cursor:pointer;}
-.bottom-bar{margin-top:50px; padding-top:24px; border-top:1px solid var(--border); font-size:0.78rem; color:var(--text-dim); text-align:center;}
-
-@media(max-width:900px){
-  .navlinks{position:fixed; top:70px; left:0; right:0; background:var(--bg-alt); flex-direction:column; padding:22px 6vw; gap:20px; border-bottom:1px solid var(--border); transform:translateY(-130%); transition:transform .35s ease;}
-  .navlinks.open{transform:translateY(0);}
-  .menu-toggle{display:block;}
-  .footer-grid{grid-template-columns:1fr; gap:34px;}
-}
-
-
-.contact-grid{display:grid; grid-template-columns:1.3fr 1fr; gap:40px;}
-.form-card{background:var(--card); border:1px solid var(--border); border-radius:6px; padding:40px;}
-.field{position:relative; margin-bottom:26px;}
-.field input, .field select, .field textarea{width:100%; background:transparent; border:none; border-bottom:1px solid var(--input-border); padding:12px 2px; color:var(--text); font-family:'Inter'; font-size:0.95rem; outline:none; transition:border-color .3s;}
+.contact-grid{display:grid; grid-template-columns:1.3fr 1fr; gap:44px;}
+.form-card{background:var(--card); border:1px solid var(--border); border-radius:8px; padding:48px 44px;}
+.form-card h3{font-size:1.3rem; margin-bottom:8px;}
+.form-card .form-desc{color:var(--text-dim); font-size:0.92rem; margin-bottom:32px;}
+.field{position:relative; margin-bottom:28px;}
+.field input, .field select, .field textarea{width:100%; background:transparent; border:none; border-bottom:1px solid var(--input-border); padding:14px 2px; color:var(--text); font-family:'Inter'; font-size:0.95rem; outline:none; transition:border-color .3s;}
 .field input:focus, .field select:focus, .field textarea:focus{border-color:var(--gold-strong); box-shadow:0 1px 0 0 var(--gold-strong);}
-.field label{position:absolute; left:2px; top:12px; color:var(--text-dim); font-size:0.95rem; pointer-events:none; transition:all .2s ease;}
+.field label{position:absolute; left:2px; top:14px; color:var(--text-dim); font-size:0.95rem; pointer-events:none; transition:all .25s ease;}
 .field input:focus + label, .field input:not(:placeholder-shown) + label, .field textarea:focus + label, .field textarea:not(:placeholder-shown) + label{top:-14px; font-size:0.75rem; color:var(--gold-strong);}
 .field select{color:var(--text);}
 .field select option{background:var(--bg-alt);}
-.submit-row{margin-top:10px;}
-.submit-btn{background:var(--gold-strong); color:#fff; border:none; padding:15px 34px; font-weight:600; font-size:0.9rem; border-radius:2px; cursor:pointer; transition:transform .3s ease;}
-.submit-btn:hover{transform:translateY(-2px);}
-.success-msg{display:none; color:var(--gold-strong); margin-top:16px; font-size:0.9rem;}
-.info-cards{display:flex; flex-direction:column; gap:18px;}
-.info-card{background:var(--card); border:1px solid var(--border); border-radius:6px; padding:26px;}
-.info-card h4{font-size:0.85rem; color:var(--gold-strong); margin-bottom:8px;}
-.info-card p{font-size:0.92rem; color:var(--text-dim);}
-.map-box{margin-top:60px; border:1px solid var(--border); border-radius:6px; overflow:hidden; height:340px;}
-.map-box iframe{width:100%; height:100%; border:0; filter:grayscale(0.3) invert(0.9) contrast(0.9);}
-:root[data-theme="light"] .map-box iframe{filter:none;}
-@media(max-width:900px){.contact-grid{grid-template-columns:1fr;}}
+.field textarea{resize:vertical; min-height:100px;}
+.submit-row{margin-top:14px;}
+.submit-btn{background:var(--gold-strong); color:var(--bg); border:none; padding:16px 38px; font-weight:600; font-size:0.92rem; border-radius:2px; cursor:pointer; transition:transform .35s ease, box-shadow .35s ease; letter-spacing:0.02em;}
+.submit-btn:hover{transform:translateY(-2px); box-shadow:0 10px 30px -8px rgba(212,175,55,0.3);}
+.success-msg{display:none; color:var(--gold-strong); margin-top:18px; font-size:0.92rem; padding:14px 18px; background:var(--gold-soft); border-radius:4px; border:1px solid var(--border);}
 
+.info-cards{display:flex; flex-direction:column; gap:20px;}
+.info-card{background:var(--card); border:1px solid var(--border); border-radius:8px; padding:30px 28px; transition:border-color .3s, transform .3s;}
+.info-card:hover{border-color:var(--gold-strong); transform:translateY(-4px);}
+.info-card h4{font-size:0.82rem; color:var(--gold-strong); margin-bottom:10px; letter-spacing:0.1em;}
+.info-card p{font-size:0.92rem; color:var(--text-dim); line-height:1.7;}
+.info-card a{color:var(--gold-strong); transition:opacity .3s;}
+.info-card a:hover{opacity:0.8;}
+
+.map-box{margin-top:70px; border:1px solid var(--border); border-radius:8px; overflow:hidden; height:360px;}
+.map-box iframe{width:100%; height:100%; border:0; filter:grayscale(0.3) contrast(0.9);}
+:root[data-theme="light"] .map-box iframe{filter:none;}
+
+.reveal{opacity:0; transform:translateY(40px);}
+
+footer{background:var(--bg-alt); padding:80px 0 34px; border-top:1px solid var(--border);}
+.footer-grid{display:grid; grid-template-columns:1.5fr 1fr 1fr 1fr; gap:40px;}
+footer .brand{margin-bottom:16px;}
+footer p.desc{font-size:0.88rem; color:var(--text-dim); max-width:320px; line-height:1.7;}
+footer h4{font-size:0.8rem; color:var(--gold-strong); margin-bottom:18px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase;}
+footer ul{list-style:none;}
+footer li{margin-bottom:11px; font-size:0.88rem; color:var(--text-dim);}
+footer li a{transition:color .3s;}
+footer li a:hover{color:var(--gold-strong);}
+.social-row{display:flex; gap:12px; margin-bottom:22px;}
+.social-row a{width:38px; height:38px; border:1px solid var(--border); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.75rem; color:var(--gold-strong); transition:background .3s, border-color .3s;}
+.social-row a:hover{background:var(--gold-soft); border-color:var(--gold-strong);}
+.newsletter{display:flex; margin-top:8px;}
+.newsletter input{flex:1; background:transparent; border:1px solid var(--input-border); border-right:none; padding:11px 14px; color:var(--text); font-size:0.85rem; border-radius:2px 0 0 2px;}
+.newsletter button{background:var(--gold-strong); color:var(--bg); border:none; padding:0 18px; font-weight:600; font-size:0.82rem; cursor:pointer; border-radius:0 2px 2px 0;}
+.bottom-bar{margin-top:55px; padding-top:26px; border-top:1px solid var(--border); font-size:0.8rem; color:var(--text-dim); text-align:center;}
+
+@media(max-width:900px){
+  nav{padding:16px 6vw;}
+  .brand-logo{height:40px;}
+  .navlinks{position:fixed; top:80px; left:0; right:0; background:var(--bg-alt); flex-direction:column; padding:24px 6vw; gap:20px; border-bottom:1px solid var(--border); transform:translateY(-130%); transition:transform .35s ease;}
+  .navlinks.open{transform:translateY(0);}
+  .menu-toggle{display:block;}
+  .footer-grid{grid-template-columns:1fr 1fr; gap:34px;}
+  .contact-grid{grid-template-columns:1fr;}
+}
 </style>
 </head>
 <body>
 <header>
   <nav class="wrap">
-    <div class="brand"><span class="brand-mark">W</span>WEEXPOINDIA</div>
+    <div class="brand"><img src="logo.png" alt="WEEXPOINDIA" class="brand-logo"></div>
     <div class="navlinks" id="navlinks">
       <a href="index.html">Home</a>
       <a href="about.html">About Us</a>
@@ -116,9 +132,12 @@ footer li{margin-bottom:10px; font-size:0.85rem; color:var(--text-dim);}
       <a href="events.html">Events & Gallery</a>
       <a href="contact.html" class="active">Contact Us</a>
     </div>
-    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌙</button>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+      <svg id="moonIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg id="sunIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    </button>
     <a href="contact.html" class="cta-btn">Get Started</a>
-    <button class="menu-toggle" id="menuToggle" aria-label="Menu">☰</button>
+    <button class="menu-toggle" id="menuToggle" aria-label="Menu">&#9776;</button>
   </nav>
 </header>
 
@@ -126,11 +145,15 @@ footer li{margin-bottom:10px; font-size:0.85rem; color:var(--text-dim);}
   <div class="wrap">
     <div class="section-tag">Contact Us</div>
     <h1>Connect with Our Event Strategy Experts</h1>
+    <p>Whether you are planning a summit, expo, product launch, or corporate gala, our team is ready to transform your vision into a world-class event experience.</p>
   </div>
 </section>
-<section style="padding-top:0;">
+
+<section style="padding-top:60px;">
   <div class="wrap contact-grid">
-    <div class="form-card">
+    <div class="form-card reveal">
+      <h3>Send Us a Message</h3>
+      <p class="form-desc">Fill out the form below and our team will respond within 24 hours.</p>
       <form id="contactForm">
         <div class="field"><input type="text" placeholder=" " required><label>Full Name</label></div>
         <div class="field"><input type="email" placeholder=" " required><label>Email Address</label></div>
@@ -139,42 +162,52 @@ footer li{margin-bottom:10px; font-size:0.85rem; color:var(--text-dim);}
         <div class="field">
           <select required>
             <option value="" disabled selected></option>
-            <option>Summits</option><option>Expos</option><option>Launchpad</option><option>Marketing</option>
+            <option>Edupreneur Summits</option><option>Global Expos</option><option>Corporate Launches</option><option>Event Marketing</option><option>Event Production</option><option>Other</option>
           </select>
-          <label style="top:-14px; font-size:0.75rem;">Event Type</label>
+          <label style="top:-14px; font-size:0.75rem;">Service Interest</label>
         </div>
-        <div class="field"><textarea rows="4" placeholder=" " required></textarea><label>Message</label></div>
+        <div class="field"><textarea rows="4" placeholder=" " required></textarea><label>Tell us about your event requirements</label></div>
         <div class="submit-row">
           <button type="submit" class="submit-btn">Send Message</button>
-          <div class="success-msg" id="successMsg">Message sent — our team will be in touch shortly.</div>
+          <div class="success-msg" id="successMsg">Thank you for reaching out. Our event strategy team will be in touch within 24 hours.</div>
         </div>
       </form>
     </div>
     <div class="info-cards">
-      <div class="info-card"><h4>HEADQUARTERS</h4><p>WEEXPOINDIA Event Hub, Premier Commercial Complex, India</p></div>
-      <div class="info-card"><h4>EMAIL ENQUIRIES</h4><p>info@weexpoindia.com<br>support@weexpoindia.com</p></div>
-      <div class="info-card"><h4>PHONE / WHATSAPP</h4><p>Available on request via the form above</p></div>
-      <div class="info-card">
+      <div class="info-card reveal">
+        <h4>HEADQUARTERS</h4>
+        <p>WEEXPOINDIA Event Hub<br>Premier Commercial Complex<br>New Delhi, India</p>
+      </div>
+      <div class="info-card reveal">
+        <h4>EMAIL ENQUIRIES</h4>
+        <p>General: <a href="mailto:info@weexpoindia.com">info@weexpoindia.com</a><br>Support: <a href="mailto:support@weexpoindia.com">support@weexpoindia.com</a><br>Partnerships: <a href="mailto:partners@weexpoindia.com">partners@weexpoindia.com</a></p>
+      </div>
+      <div class="info-card reveal">
+        <h4>OFFICE HOURS</h4>
+        <p>Monday to Friday: 9:00 AM to 6:00 PM IST<br>Saturday: 10:00 AM to 2:00 PM IST<br>Sunday: Closed</p>
+      </div>
+      <div class="info-card reveal">
         <h4>FOLLOW US</h4>
-        <div class="social-row">
+        <div class="social-row" style="margin-bottom:0;">
           <a href="https://www.facebook.com/weexpoindia/" aria-label="Facebook">f</a>
           <a href="https://www.instagram.com/weexpo_india/" aria-label="Instagram">ig</a>
           <a href="https://weexpoindia.com" aria-label="Website">w</a>
+          <a href="#" aria-label="LinkedIn">in</a>
         </div>
       </div>
     </div>
   </div>
-  <div class="wrap map-box">
-    <iframe src="https://www.google.com/maps?q=India&output=embed" loading="lazy"></iframe>
+  <div class="wrap map-box reveal">
+    <iframe src="https://www.google.com/maps?q=New+Delhi+India&output=embed" loading="lazy"></iframe>
   </div>
 </section>
 
 <footer>
   <div class="wrap footer-grid">
     <div>
-      <div class="brand"><span class="brand-mark">W</span>WEEXPOINDIA</div>
-      <p class="slogan" style="margin-bottom:14px;">EXPLORE. ENLIGHTEN. EVOLVE.</p>
-      <p class="desc">A full-service event management community producing summits, expos and brand activations across industries.</p>
+      <div class="brand"><img src="logo.png" alt="WEEXPOINDIA" class="brand-logo" style="height:42px;"></div>
+      <p class="slogan" style="margin-bottom:16px;">EXPLORE. ENLIGHTEN. EVOLVE.</p>
+      <p class="desc">A globally recognized full-service event management community producing summits, expos, and brand activations across diversified sectors in the global arena.</p>
     </div>
     <div>
       <h4>Quick Links</h4>
@@ -184,6 +217,15 @@ footer li{margin-bottom:10px; font-size:0.85rem; color:var(--text-dim);}
         <li><a href="services.html">Services</a></li>
         <li><a href="events.html">Events &amp; Gallery</a></li>
         <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Services</h4>
+      <ul>
+        <li><a href="services.html">Event Production</a></li>
+        <li><a href="services.html">Event Marketing</a></li>
+        <li><a href="services.html">Edupreneur Summits</a></li>
+        <li><a href="services.html">Corporate Launches</a></li>
       </ul>
     </div>
     <div>
@@ -200,20 +242,20 @@ footer li{margin-bottom:10px; font-size:0.85rem; color:var(--text-dim);}
       </div>
     </div>
   </div>
-  <div class="bottom-bar wrap">© 2026 WEEXPOINDIA. All Rights Reserved. Crafted for Global Excellence.</div>
+  <div class="bottom-bar wrap">&copy; 2026 WEEXPOINDIA. All Rights Reserved. Crafted for Global Excellence.</div>
 </footer>
+
 <script>
 const themeToggle = document.getElementById('themeToggle');
+const moonIcon = document.getElementById('moonIcon');
+const sunIcon = document.getElementById('sunIcon');
 const root = document.documentElement;
-function applyTheme(t){ root.setAttribute('data-theme', t); themeToggle.textContent = t==='light' ? '☀️' : '🌙'; localStorage.setItem('wx-theme', t); }
+function applyTheme(t){ root.setAttribute('data-theme', t); moonIcon.style.display = t==='light' ? 'none' : 'block'; sunIcon.style.display = t==='light' ? 'block' : 'none'; localStorage.setItem('wx-theme', t); }
 applyTheme(localStorage.getItem('wx-theme') || 'dark');
-themeToggle.addEventListener('click', ()=>{
-  applyTheme(root.getAttribute('data-theme')==='light' ? 'dark' : 'light');
-});
+themeToggle.addEventListener('click', ()=>{ applyTheme(root.getAttribute('data-theme')==='light' ? 'dark' : 'light'); });
 const menuToggle = document.getElementById('menuToggle');
 const navlinks = document.getElementById('navlinks');
 menuToggle.addEventListener('click', ()=> navlinks.classList.toggle('open'));
-
 
 document.getElementById('contactForm').addEventListener('submit', function(e){
   e.preventDefault();
@@ -221,6 +263,12 @@ document.getElementById('contactForm').addEventListener('submit', function(e){
   this.reset();
 });
 
+window.addEventListener('load', ()=>{
+  gsap.registerPlugin(ScrollTrigger);
+  gsap.utils.toArray('.reveal').forEach(el=>{
+    gsap.to(el, {opacity:1, y:0, duration:0.9, ease:'power3.out', scrollTrigger:{trigger:el, start:'top 88%', once:true}});
+  });
+});
 </script>
 </body>
 </html>
