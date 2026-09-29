@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>WEEXPOINDIA — Explore. Enlighten. Evolve.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Inter:wght@300;400;500&family=Cinzel:wght@500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{
+  --bg:#191F3C; --bg-alt:#232B52; --text:#FFFFFF; --text-dim:rgba(255,255,255,0.65);
+  --gold:#F4E798; --gold-strong:#F4E798; --border:rgba(244,231,152,0.15); --card:rgba(255,255,255,0.03);
+  --input-border:rgba(255,255,255,0.2);
+}
+:root[data-theme="light"]{
+  --bg:#F8F9FC; --bg-alt:#FFFFFF; --text:#232B52; --text-dim:rgba(35,43,82,0.65);
+  --gold:#F4E798; --gold-strong:#B8892B; --border:rgba(35,43,82,0.12); --card:rgba(35,43,82,0.035);
+  --input-border:rgba(35,43,82,0.25);
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+html{scroll-behavior:smooth; scroll-padding-top:80px;}
+body{background:var(--bg); color:var(--text); font-family:'Inter',sans-serif; font-weight:300; line-height:1.6; overflow-x:hidden; transition:background .35s ease, color .35s ease;}
+h1,h2,h3{font-family:'Outfit',sans-serif; font-weight:700; letter-spacing:-0.01em; color:var(--text);}
+.slogan{font-family:'Cinzel',serif; letter-spacing:0.22em; font-weight:500; font-size:0.72rem; color:var(--gold-strong);}
+a{color:inherit; text-decoration:none;}
+.wrap{max-width:1180px; margin:0 auto; padding:0 6vw;}
+img{max-width:100%; display:block;}
+
+header{position:fixed; top:0; left:0; right:0; z-index:100; padding-top:env(safe-area-inset-top,0px);
+  background:color-mix(in srgb, var(--bg-alt) 78%, transparent); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--border);}
+nav{display:flex; align-items:center; justify-content:space-between; padding:16px 6vw; gap:18px;}
+.brand{display:flex; align-items:center; gap:10px; font-family:'Outfit'; font-weight:800; font-size:1.05rem;}
+.brand-mark{width:34px; height:34px; border:1.5px solid var(--gold-strong); border-radius:7px; display:flex; align-items:center; justify-content:center; color:var(--gold-strong); font-family:'Cinzel'; font-size:0.65rem; flex-shrink:0;}
+.navlinks{display:flex; gap:32px; font-size:0.88rem; margin-left:auto;}
+.navlinks a{position:relative; opacity:0.85; transition:opacity .25s; color:var(--text);}
+.navlinks a.active,.navlinks a:hover{opacity:1;}
+.navlinks a::after{content:'';position:absolute;left:0;bottom:-6px;width:0;height:1px;background:var(--gold-strong);transition:width .3s;}
+.navlinks a:hover::after,.navlinks a.active::after{width:100%;}
+.cta-btn{border:1px solid var(--gold-strong); color:var(--gold-strong); padding:10px 20px; border-radius:2px; font-size:0.82rem; font-weight:500; transition:all .3s ease; white-space:nowrap;}
+.cta-btn:hover{background:var(--gold-strong); color:var(--bg-alt);}
+.theme-toggle{width:38px; height:38px; border:1px solid var(--border); border-radius:50%; background:none; color:var(--text); cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:1rem; flex-shrink:0;}
+.menu-toggle{display:none; background:none; border:none; color:var(--gold-strong); font-size:1.4rem; cursor:pointer;}
+
+.page-hero{padding:150px 0 70px; border-bottom:1px solid var(--border);}
+.page-hero .section-tag{color:var(--gold-strong); font-size:0.85rem; margin-bottom:14px;}
+.page-hero h1{font-size:clamp(2rem,4.4vw,3.2rem); max-width:760px;}
+.page-hero p{margin-top:20px; max-width:560px; color:var(--text-dim); font-size:1.02rem;}
+
+section{padding:100px 0;}
+.section-tag{color:var(--gold-strong); font-size:0.85rem; font-weight:500; margin-bottom:14px;}
+.section-head h2{font-size:clamp(1.7rem,3.2vw,2.4rem); max-width:640px;}
+.btn-primary{background:var(--gold-strong); color:var(--bg-alt); padding:15px 30px; font-weight:600; font-size:0.9rem; border-radius:2px; display:inline-block; transition:transform .3s ease, box-shadow .3s ease;}
+:root[data-theme="light"] .btn-primary{color:#fff;}
+.btn-primary:hover{transform:translateY(-2px); box-shadow:0 10px 30px -8px rgba(244,231,152,0.5);}
+.btn-ghost{border:1px solid var(--input-border); color:var(--text); padding:15px 30px; font-size:0.9rem; border-radius:2px; transition:border-color .3s;}
+.btn-ghost:hover{border-color:var(--gold-strong); color:var(--gold-strong);}
+
+footer{background:var(--bg-alt); padding:70px 0 30px; border-top:1px solid var(--border);}
+.footer-grid{display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:40px;}
+footer .brand{margin-bottom:14px;}
+footer p.desc{font-size:0.85rem; color:var(--text-dim); max-width:320px;}
+footer h4{font-size:0.82rem; color:var(--gold-strong); margin-bottom:16px; font-weight:500;}
+footer ul{list-style:none;}
+footer li{margin-bottom:10px; font-size:0.85rem; color:var(--text-dim);}
+.social-row{display:flex; gap:12px; margin-bottom:22px;}
+.social-row a{width:36px; height:36px; border:1px solid var(--border); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.75rem; color:var(--gold-strong); transition:background .3s;}
+.social-row a:hover{background:var(--card);}
+.newsletter{display:flex; margin-top:6px;}
+.newsletter input{flex:1; background:transparent; border:1px solid var(--input-border); border-right:none; padding:10px 12px; color:var(--text); font-size:0.82rem;}
+.newsletter button{background:var(--gold-strong); color:#fff; border:none; padding:0 16px; font-weight:600; font-size:0.8rem; cursor:pointer;}
+.bottom-bar{margin-top:50px; padding-top:24px; border-top:1px solid var(--border); font-size:0.78rem; color:var(--text-dim); text-align:center;}
+
+@media(max-width:900px){
+  .navlinks{position:fixed; top:70px; left:0; right:0; background:var(--bg-alt); flex-direction:column; padding:22px 6vw; gap:20px; border-bottom:1px solid var(--border); transform:translateY(-130%); transition:transform .35s ease;}
+  .navlinks.open{transform:translateY(0);}
+  .menu-toggle{display:block;}
+  .footer-grid{grid-template-columns:1fr; gap:34px;}
+}
+
+
+.hero{position:relative; min-height:100vh; display:flex; align-items:center; padding-top:90px;}
+#particles{position:absolute; inset:0; z-index:0; opacity:0.5;}
+.hero-content{position:relative; z-index:2; max-width:760px;}
+.hero .slogan{display:block; margin-bottom:22px;}
+.hero h1{font-size:clamp(2.4rem,5.4vw,4.4rem); line-height:1.06;}
+.hero h1 .rev{display:inline-block; overflow:hidden;}
+.hero h1 .rev span{display:inline-block; transform:translateY(110%);}
+.hero p{margin-top:26px; max-width:540px; font-size:1.05rem; color:var(--text-dim);}
+.hero-ctas{margin-top:38px; display:flex; gap:18px; flex-wrap:wrap;}
+.float-cards{position:relative; z-index:2; margin-top:80px; display:grid; grid-template-columns:repeat(3,1fr); gap:22px;}
+.fcard{background:var(--card); border:1px solid var(--border); padding:28px 24px; border-radius:4px; transition:transform .4s ease, border-color .4s ease;}
+.fcard:hover{border-color:var(--gold-strong); transform:translateY(-6px);}
+.fcard .num{font-family:'Cinzel'; color:var(--gold-strong); font-size:0.75rem; letter-spacing:0.15em; display:block; margin-bottom:14px;}
+.fcard h3{font-size:1.15rem; margin-bottom:8px;}
+.fcard p{font-size:0.88rem; color:var(--text-dim);}
+.metrics-band{background:var(--bg-alt); border-top:1px solid var(--border); border-bottom:1px solid var(--border);}
+.metrics-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:20px;}
+.metric b{font-family:'Outfit'; font-size:clamp(2rem,4vw,3rem); color:var(--gold-strong); font-weight:800; display:block;}
+.metric span{font-size:0.88rem; color:var(--text-dim); margin-top:6px; display:block;}
+.services-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--border); margin-top:50px; border:1px solid var(--border);}
+.service{background:var(--bg); padding:36px 26px; transition:background .35s ease;}
+.service:hover{background:var(--bg-alt);}
+.service h3{font-size:1.05rem; margin-bottom:10px;}
+.service p{font-size:0.85rem; color:var(--text-dim);}
+.ticker-wrap{overflow:hidden; border-top:1px solid var(--border); padding:40px 0; background:var(--bg-alt);}
+.ticker{display:flex; gap:70px; width:max-content; animation:scroll 26s linear infinite; font-family:'Outfit'; font-weight:600; font-size:1.05rem; color:var(--text-dim); letter-spacing:0.04em;}
+@keyframes scroll{from{transform:translateX(0)} to{transform:translateX(-50%)}}
+.cta-banner{background:var(--bg-alt); padding:100px 0;}
+.cta-banner h2{font-size:clamp(1.8rem,4vw,3rem); background:linear-gradient(90deg,var(--gold-strong),var(--gold)); -webkit-background-clip:text; background-clip:text; color:transparent; max-width:720px;}
+.cta-banner .btn-primary{margin-top:34px;}
+@media(max-width:900px){.float-cards{grid-template-columns:1fr;} .metrics-grid{grid-template-columns:repeat(2,1fr); row-gap:34px;} .services-grid{grid-template-columns:repeat(2,1fr);}}
+
+</style>
+</head>
+<body>
+<header>
+  <nav class="wrap">
+    <div class="brand"><span class="brand-mark">W</span>WEEXPOINDIA</div>
+    <div class="navlinks" id="navlinks">
+      <a href="index.html" class="active">Home</a>
+      <a href="about.html">About Us</a>
+      <a href="services.html">Services</a>
+      <a href="events.html">Events & Gallery</a>
+      <a href="contact.html">Contact Us</a>
+    </div>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌙</button>
+    <a href="contact.html" class="cta-btn">Get Started</a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Menu">☰</button>
+  </nav>
+</header>
+
+<section class="hero">
+  <canvas id="particles"></canvas>
+  <div class="wrap hero-content">
+    <span class="slogan">EXPLORE · ENLIGHTEN · EVOLVE</span>
+    <h1 id="headline">
+      <span class="rev"><span>Architecting Extraordinary</span></span><br>
+      <span class="rev"><span>Global Event Experiences</span></span>
+    </h1>
+    <p>WEEXPOINDIA connects visionary leaders, global investors, edupreneurs, and policymakers through world-class summits, expos, and brand activations.</p>
+    <div class="hero-ctas">
+      <a href="events.html" class="btn-primary">Explore Our Events</a>
+      <a href="contact.html" class="btn-ghost">Partner With Us</a>
+    </div>
+    <div class="float-cards">
+      <div class="fcard"><span class="num">01</span><h3>Explore</h3><p>Discover opportunities and markets across sectors and borders.</p></div>
+      <div class="fcard"><span class="num">02</span><h3>Enlighten</h3><p>Gain insights from global thought leaders and policy makers.</p></div>
+      <div class="fcard"><span class="num">03</span><h3>Evolve</h3><p>Transform ideas into impactful, lasting realities.</p></div>
+    </div>
+  </div>
+</section>
+<section class="metrics-band">
+  <div class="wrap metrics-grid">
+    <div class="metric"><b data-target="500">0</b><span>Global Events Managed</span></div>
+    <div class="metric"><b data-target="50000">0</b><span>Delegates &amp; Attendees</span></div>
+    <div class="metric"><b data-target="100">0</b><span>Policy Makers &amp; Institutional Leaders</span></div>
+    <div class="metric"><b data-target="98">0</b><span>Client Satisfaction &amp; Renewal Rate</span></div>
+  </div>
+</section>
+<section>
+  <div class="wrap section-head">
+    <div class="section-tag">What We Do</div>
+    <h2>Full-service event architecture, from concept to closing keynote.</h2>
+  </div>
+  <div class="wrap services-grid">
+    <div class="service"><h3>Event Production</h3><p>Stage, sound, lighting and spatial design executed end to end.</p></div>
+    <div class="service"><h3>Event Marketing</h3><p>Delegate acquisition, PR and digital campaigns that fill the room.</p></div>
+    <div class="service"><h3>Edupreneur Summits</h3><p>High-level conclaves connecting education innovators and investors.</p></div>
+    <div class="service"><h3>Corporate Launchpads</h3><p>Product launches and expos built for maximum market impact.</p></div>
+  </div>
+</section>
+<div class="ticker-wrap">
+  <div class="ticker">
+    <span>GOVERNMENT PARTNERS</span><span>INSTITUTIONAL LEADERS</span><span>GLOBAL INVESTORS</span><span>CORPORATE BRANDS</span><span>EDUPRENEUR NETWORKS</span>
+    <span>GOVERNMENT PARTNERS</span><span>INSTITUTIONAL LEADERS</span><span>GLOBAL INVESTORS</span><span>CORPORATE BRANDS</span><span>EDUPRENEUR NETWORKS</span>
+  </div>
+</div>
+<section class="cta-banner">
+  <div class="wrap">
+    <h2>Ready to elevate your event into a global spectacle?</h2>
+    <a href="contact.html" class="btn-primary">Start the Conversation</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-grid">
+    <div>
+      <div class="brand"><span class="brand-mark">W</span>WEEXPOINDIA</div>
+      <p class="slogan" style="margin-bottom:14px;">EXPLORE. ENLIGHTEN. EVOLVE.</p>
+      <p class="desc">A full-service event management community producing summits, expos and brand activations across industries.</p>
+    </div>
+    <div>
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="events.html">Events &amp; Gallery</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Stay Updated</h4>
+      <div class="social-row">
+        <a href="https://www.facebook.com/weexpoindia/" aria-label="Facebook">f</a>
+        <a href="https://www.instagram.com/weexpo_india/" aria-label="Instagram">ig</a>
+        <a href="#" aria-label="LinkedIn">in</a>
+        <a href="#" aria-label="YouTube">yt</a>
+      </div>
+      <div class="newsletter">
+        <input type="email" placeholder="Your email">
+        <button>Join</button>
+      </div>
+    </div>
+  </div>
+  <div class="bottom-bar wrap">© 2026 WEEXPOINDIA. All Rights Reserved. Crafted for Global Excellence.</div>
+</footer>
+<script>
+const themeToggle = document.getElementById('themeToggle');
+const root = document.documentElement;
+function applyTheme(t){ root.setAttribute('data-theme', t); themeToggle.textContent = t==='light' ? '☀️' : '🌙'; localStorage.setItem('wx-theme', t); }
+applyTheme(localStorage.getItem('wx-theme') || 'dark');
+themeToggle.addEventListener('click', ()=>{
+  applyTheme(root.getAttribute('data-theme')==='light' ? 'dark' : 'light');
+});
+const menuToggle = document.getElementById('menuToggle');
+const navlinks = document.getElementById('navlinks');
+menuToggle.addEventListener('click', ()=> navlinks.classList.toggle('open'));
+
+
+const canvas = document.getElementById('particles');
+const ctx = canvas.getContext('2d');
+function resize(){canvas.width = canvas.offsetWidth; canvas.height = canvas.offsetHeight;}
+resize(); window.addEventListener('resize', resize);
+let particles = Array.from({length: 70}, () => ({x: Math.random()*canvas.width, y: Math.random()*canvas.height, r: Math.random()*1.8+0.4, s: Math.random()*0.5+0.15, o: Math.random()*0.5+0.2}));
+function tick(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--gold').trim() || '#F4E798';
+  particles.forEach(p=>{ p.y -= p.s; if(p.y < -5){p.y = canvas.height+5; p.x = Math.random()*canvas.width;} ctx.globalAlpha = p.o; ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill(); });
+  requestAnimationFrame(tick);
+}
+tick();
+window.addEventListener('load', ()=>{
+  gsap.registerPlugin(ScrollTrigger);
+  gsap.to('.rev span', {y:'0%', duration:1, ease:'power4.out', stagger:0.15, delay:0.2});
+  gsap.from('.hero p, .hero-ctas', {opacity:0, y:20, duration:0.9, delay:0.9, stagger:0.15});
+  gsap.from('.fcard', {opacity:0, y:30, duration:0.8, delay:1.1, stagger:0.12});
+  document.querySelectorAll('.metric b').forEach(el=>{
+    const target = +el.dataset.target;
+    ScrollTrigger.create({trigger: el, start:'top 85%', once:true, onEnter: ()=>{
+      gsap.fromTo(el, {innerText:0}, {innerText: target, duration:1.6, ease:'power2.out', snap:{innerText:1},
+        onUpdate: function(){ el.innerText = Math.floor(el.innerText).toLocaleString() + (target===98 ? '%' : '+'); }});
+    }});
+  });
+});
+
+</script>
+</body>
+</html>
